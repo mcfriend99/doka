@@ -1,0 +1,16 @@
+{
+  "name": "doka", 
+  "version": "1.0.0", 
+  "description": "A documentation website engine for Blade programming language.", 
+  "homepage": "", 
+  "tags": [
+    "documentation", 
+    "website"
+  ], 
+  "author": "Richard Ore <eqliqandfriends@gmail.com>", 
+  "license": "MIT", 
+  "sources": [
+    "https://nyssa.bladelang.com"
+  ], 
+  "deps": {}
+}
