@@ -1,0 +1,12 @@
+<header>
+  <div class="header">
+    <span class="logo">
+      <a href="/">{{ config.app_name }}</a>
+    </span>
+    <span class="links">
+      <a x-if="page.next" href="{{ page.next.link }}">Next</a>
+      <span>|</span>
+      <a x-if="page.previous" href="{{ page.previous.link }}">Previous</a>
+    </span>
+  </div>
+</header>

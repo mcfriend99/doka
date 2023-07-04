@@ -1,0 +1,22 @@
+{
+  "name": "doka", 
+  "version": "1.0.0", 
+  "description": "A markdown based documentation site server.", 
+  "homepage": "https://github.com/mcfriend99/", 
+  "tags": [
+    "book", 
+    "website", 
+    "site-generator", 
+    "markdown", 
+    "documentation", 
+    "blogging"
+  ], 
+  "author": "Richard Ore <eqliqandfriends@gmail.com>", 
+  "license": "MIT", 
+  "sources": [
+    "https://nyssa.bladelang.com"
+  ], 
+  "deps": {
+    "highlight": "1.0.0"
+  }
+}

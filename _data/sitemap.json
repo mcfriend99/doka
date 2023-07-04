@@ -1,0 +1,20 @@
+{
+  "/": {
+    "source": "index",
+    "title": "Home"
+  },
+  "/kitchen-sink": {
+    "source": "kitchen/index",
+    "title": "Kitchen Sink",
+    "children": {
+      "/kitchen-sink/table": {
+        "source": "kitchen/table",
+        "title": "Tables"
+      },
+      "/kitchen-sink/structure": {
+        "source": "kitchen/structure",
+        "title": "Structural Elements"
+      }
+    }
+  }
+}
