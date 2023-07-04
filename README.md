@@ -6,7 +6,7 @@ A markdown based documentation site server.
 
 - **Name:** doka
 - **Version:** 1.0.0
-- **Homepage:** _Homepage goes here._
+- **Homepage:** https://github.com/mcfriend99/doka
 - **Tags:** book, website, site-generator, markdown, documentation, blogging
 - **Author:** Richard Ore <eqliqandfriends@gmail.com>
 - **License:** MIT
