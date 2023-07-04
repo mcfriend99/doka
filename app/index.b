@@ -12,7 +12,7 @@ def serve(options) {
   if !os.dir_exists(options.root)
     die Exception('Invalid source directory!')
 
-  var theme_path = os.join_paths(os.cwd(), 'templates', options.theme)
+  var theme_path = os.join_paths(os.cwd(), 'themes', options.theme)
   if !os.dir_exists(theme_path) {
     theme_path = os.join_paths(
       os.dir_name(os.dir_name(__FILE__)), 
