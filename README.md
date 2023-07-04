@@ -1,6 +1,6 @@
 # doka
 
-A doka static site generator.
+A markdown based documentation site server.
 
 ### Package Information
 
