@@ -4,6 +4,7 @@ import template
 import .utils
 import .functions
 import .build
+import .search
 
 # export this module outside this package
 import .config
@@ -32,23 +33,23 @@ def serve(options) {
 
   # register functions that can be reused by theme authors.
   tm.register_function('blank', functions.blank)
+  tm.register_function('search_text', functions.search_query)
 
   var final_sitemap = build(tm.render, options)
 
   var server = http.server(options.port, options.host)
   server.on_receive(@(req, res) {
-    if req.method.upper() == 'GET' {
+    if req.path != options.search_page {
       var path = final_sitemap.endpoints.get(req.path)
       if path {
-        res.headers['Content-Type'] = path.mime
-        res.write(path.file.read())
+        res.headers.extend(path.headers)
+        res.write(path.content)
       } else {
-        res.write(final_sitemap[404].file.read())
+        res.write(final_sitemap[404].content)
       }
-      return
+    } else {
+      search(req, res, tm.render, final_sitemap.endpoints, options)
     }
-
-    # handle search requests.
   })
 
   server.on_error(@(err, _) {

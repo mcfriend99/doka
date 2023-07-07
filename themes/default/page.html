@@ -13,16 +13,7 @@
           {{ navs.subnav }}
         </div>
       </section>
-      <section class="sidebar">
-        <h3>Search</h3>
-        <form method="get" action="">
-          <input type="text" name="search" />
-          <button type="submit">Go</button>
-        </form>
-
-        <h3>Navigation</h3>
-        {{ navs.main }}
-      </section>
+      <include x-path="includes/sidebar.html">
     </section>
   </main>
   <include x-path="includes/footer.html">

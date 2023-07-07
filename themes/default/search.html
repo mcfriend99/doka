@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<include x-path="includes/head.html">
+<body>
+  <include x-path="includes/header.html">
+  <main>
+    <section class="document">
+      <section class="content">
+        <h1>Showing result for "{{ request.queries|search_text }}"</h1>
+        <div x-if="page.content">Search finished, found {{ page.content|length }} result(s) matching the search query.</div>
+        <div x-not="page.content">No sections were found matching the search query "{{ request.queries|search_text }}".</div>
+
+        <ul x-if="page.content" class="search-result">
+          <li x-for="page.content" x-value="result">
+            <a href="{{ result.path }}">{{ result.title }}</a>
+            <p>...{{ result.excerpt }}...</p>
+          </li>
+        </ul>
+      </section>
+      <include x-path="includes/sidebar.html">
+    </section>
+  </main>
+  <include x-path="includes/footer.html">
+</body>
+</html>

@@ -1,0 +1,10 @@
+<section class="sidebar">
+  <h3>Search</h3>
+  <form method="GET" action="{{ config.search_page }}">
+    <input type="text" name="q" value="{{ request.queries|search_text }}" />
+    <button type="submit">Go</button>
+  </form>
+
+  <h3>Navigation</h3>
+  {{ navs.main }}
+</section>

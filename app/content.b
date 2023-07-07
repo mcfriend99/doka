@@ -6,11 +6,7 @@ import .toc_plugin { toc_plugin }
 
 var md = markdown({
   highlight: highlight(),
-}).use(toc_plugin, {
-  callback: @(html, ast) {
-    # echo html
-  }
-})
+}).use(toc_plugin)
 
 def get_template_vars(req, md_file, config) {
   return {
@@ -19,7 +15,7 @@ def get_template_vars(req, md_file, config) {
       subnav: nav.create_subnav(config.endpoints, req.path, config),
     },
     page: {
-      content: md_file ? md.render(md_file.read()) : '',
+      content: md_file and is_file(md_file) ? md.render(md_file.read()) : md_file,
       title: nav.get_title(config.endpoints, req.path),
       next: nav.get_nth_endpoint(config.endpoints, req.path, 1),
       previous: nav.get_nth_endpoint(config.endpoints, req.path, -1),
@@ -28,5 +24,6 @@ def get_template_vars(req, md_file, config) {
     theme: config.theme_config,
     theme_name: config.theme,
     doka: config.doka,
+    request: is_dict(req) ? req : req.to_dict(),
   }
 }

@@ -1,23 +1,8 @@
 import os
 import mime
+import hash
 import .content
-
-def get_file_list(root_dir, main_root) {
-  if os.dir_exists(root_dir) {
-    return os.read_dir(root_dir).filter(@(f) { 
-      return !f.starts_with('.')
-    }).reduce(@(list, file) {
-      var full_path = os.join_paths(root_dir, file)
-      if os.dir_exists(full_path) {
-        list.extend(get_file_list(full_path, main_root))
-      } else {
-        list.append(full_path[main_root.length(),])
-      }
-      return list
-    }, [])
-  }
-  return []
-}
+import .utils { get_file_list }
 
 def create_asset_output(asset, source_dir, output_dir, options) {
   var output_file = os.join_paths(
@@ -33,6 +18,25 @@ def create_asset_output(asset, source_dir, output_dir, options) {
   return output_file
 }
 
+def do_asset_build(assets, root, output_dir, options, map) {
+  for asset in assets {
+    var reader = file(create_asset_output(asset, root, output_dir, options))
+    var content = reader.read()
+
+    map[asset] = {
+      file: reader,
+      content: content,
+      title: '',
+      md: '',
+      headers: {
+        'Cache-Control': 'public, max-age=31536000, s-maxage=31536000, immutable', # cache for 1 year
+        'Etag': 'W/"${hash.md5(content)}"',
+        'Content-Type': mime.detect_from_name(asset),
+      },
+    }
+  }
+}
+
 def build_assets(options, output_dir) {
   var this_assets = get_file_list(options.assets, options.assets)
 
@@ -41,22 +45,14 @@ def build_assets(options, output_dir) {
 
   var map = {}
 
-  for asset in this_assets {
-    map[asset] = {
-      file: file(create_asset_output(asset, options.assets, output_dir, options)),
-      mime: mime.detect_from_name(asset),
-    }
-  }
+  # build theme assets first to that they can be overwritten by user assets.
+  do_asset_build(theme_assets.filter(@(asset) {
+    # we won't be building overriden asset files.
+    return !this_assets.contains(asset)
+  }), theme_assets_dir, output_dir, options, map)
 
-  for asset in theme_assets {
-    # we won't be builxing overriden asset files.
-    if !this_assets.contains(asset) {
-      map[asset] = {
-        file: file(create_asset_output(asset, theme_assets_dir, output_dir, options)),
-        mime: mime.detect_from_name(asset),
-      }
-    }
-  }
+  # the build user assets to allow theme overrides.
+  do_asset_build(this_assets, options.assets, output_dir, options, map)
 
   return map
 }
@@ -75,9 +71,10 @@ def build_endpoints(template, options, output_dir) {
       key.replace('/', '_') + '.html'
     )
 
+    var page = content.get_template_vars({path: key, req: {},}, markdown_file, options)
     var rendered_content = template(
       template_type + '.html',
-      content.get_template_vars({path: key}, markdown_file, options)
+      page
     )
     
     var output_path = os.dir_name(html_file)
@@ -86,9 +83,15 @@ def build_endpoints(template, options, output_dir) {
     }
     
     file(html_file, 'w').write(rendered_content)
+
+    var reader = file(html_file)
+    var content = reader.read()
     map[key] = {
-      file: file(html_file),
-      mime: 'text/html',
+      file: reader,
+      content: content,
+      md: page.page.content,
+      title: value.title,
+      headers: {},
     }
   }
 
@@ -98,7 +101,7 @@ def build_endpoints(template, options, output_dir) {
 def build_error_page(template, error_code, output_dir, options) {
   var html_file = os.join_paths(
     output_dir, 
-    'generated',
+    'errors',
     '${error_code}.html'
   )
 
@@ -114,9 +117,13 @@ def build_error_page(template, error_code, output_dir, options) {
   
   file(html_file, 'w').write(rendered_content)
 
+  var file_handle = file(html_file)
   return {
-    file: file(html_file),
-    mime: 'text/html',
+    file: file_handle,
+    content: file_handle.read(),
+    headers: {},
+    title: '',
+    md: '',
   }
 }
 
