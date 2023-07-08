@@ -89,7 +89,7 @@ def build_endpoints(template, options, output_dir) {
     map[key] = {
       file: reader,
       content: content,
-      md: page.page.content,
+      md: markdown_file.read(),
       title: value.title,
       headers: {},
     }

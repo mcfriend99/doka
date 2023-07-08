@@ -1,38 +1,62 @@
 import .utils
 import .content
 import .functions { search_query }
+import .anchor_plugin { slugify }
 import os
 
 def clean_string(string) {
-  return string.replace('/<[^>]+>/', '').
-                replace('/\\n|\\r|\\t/', ' ').
+  return string.replace('/\\n|\\r|\\t/', ' ').
                 replace('/\s+/', ' ')
 }
 
 def de_regex(string) {
-  return string.replace('/[^$.|()\[\]-{}*+?\\/\\\\]/', '\\$0')
+  return string.replace('/[$\[\]\\\\|.\\/+?(){}?^*]/', '\\$0')
 }
 
-def find(string, needle, path, title, result) {
-  var start_index = 0
-  var index = -1
+def find(string, needle, content_path, content_title, result) {
 
-  var lowered_string = string.lower()
-  var lowered_needle = needle.lower()
-  while (index = lowered_string.index_of(lowered_needle, start_index)) != -1 {
-    var start = index - 75 < 0 ? 0 : index - 75
-    var end = index - 75 < 0 ? 150 - index : 75
+  var clean_needle = de_regex(needle)
 
-    var excerpt = string[start, index + end].trim().replace('/(${de_regex(needle)})/i', '<strong>$1</strong>')
-    
-    result.set(excerpt, {
-      path,
-      title,
-      excerpt,
-    })
+  def process(matches) {
+    if matches {
+      iter var i = 0; i < matches[0].length(); i++ {
+        var is_intro = string.starts_with(matches[0][i])
+  
+        var title = is_intro ? content_title : content_title + ' &rsaquo; ' + matches[1][i]
+        var path = is_intro ? content_path : content_path + '#' + slugify(matches[1][i])
+        var excerpt = clean_string(
+          matches[2][i].
+            # replace links and images as they may cause repition
+            replace('/\]\([^)]+\)/', '').
+            # replace non-word characters
+            replace('/[^\w\s"\']+/', '')[,200]
 
-    start_index = index + needle.length()
+        # make the matched query itself bold
+        ).replace('/(${clean_needle})/i', '<strong>$1</strong>')
+
+        var existing_match = result.keys().filter(@(x) { return excerpt.starts_with(x) or x.starts_with(excerpt) })
+        if existing_match {
+          if existing_match[0].length() > excerpt.length() {
+            continue
+          } else {
+            result.remove(existing_match[0])
+          }
+        }
+        
+        result.set(excerpt, {
+          path,
+          title,
+          excerpt,
+        })
+      }
+    }
   }
+
+  # section match
+  process(string.matches('/#{1,6} (.*${clean_needle}.*)\n+((.|\n(?!\n#{1,6} )(?!(\n#{1,6} )))*)/im'))
+
+  # content match
+  process(string.matches('/#{1,6} ([^\n]+)\n+((?:.|\n(?!\n#{1,6} ))*${clean_needle}(?:.|\n(?!\n#{1,6} ))*)/im'))
 }
 
 def do_search(query, sitemap) {
@@ -50,7 +74,7 @@ def do_search(query, sitemap) {
       # we are using the md to avoid searching the entire html page 
       # which may include headers, sidebar and footers.
       find(
-        clean_string(data.md),
+        data.md,
         clean_string(query),
         path,
         data.title,

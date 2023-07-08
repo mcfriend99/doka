@@ -173,6 +173,10 @@ header {
   font-size: 2.5rem;
 }
 
+.content h1:focus-visible, .content h2:focus-visible, .content h3:focus-visible {
+  outline: 0;
+}
+
 .content h2 {
   font-size: 1.8rem;
 }
@@ -250,6 +254,10 @@ header {
 
 .content a, .content a:hover {
   color: tomato;
+}
+
+.content p {
+  overflow-wrap: anywhere;
 }
 
 .content p img {
