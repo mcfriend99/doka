@@ -2,9 +2,9 @@ import args
 import json
 import os
 
-def config() {
+def config(this_dir, options) {
 
-  var this_dir = os.cwd()
+  /* # var this_dir = os.cwd()
 
   # parse cli arguments
   var parser = args.Parser('doka')
@@ -31,7 +31,7 @@ def config() {
     value: '127.0.0.1',
   })
 
-  var options =  parser.parse().options
+  var options =  parser.parse().options */
 
   # set the default theme
   options.set('theme', 'default')

@@ -1,64 +1,41 @@
-import http
-import os
-import template
-import .utils
-import .functions
-import .build
-import .search
-
-# export this module outside this package
+import .serve
 import .config
 
-def serve(options) {
-  if !os.dir_exists(options.root)
-    die Exception('Invalid source directory!')
+import os
+import args
 
-  var theme_path = os.join_paths(os.cwd(), 'themes', options.theme)
-  if !os.dir_exists(theme_path) {
-    theme_path = os.join_paths(
-      os.dir_name(os.dir_name(__FILE__)), 
-      'templates', options.theme
-    )
+var this_dir = os.cwd()
 
-    if !os.dir_exists(theme_path) {
-      die Exception('Theme "${options.theme}" not found!')
-    }
+var parser = args.Parser('doka')
+
+parser.add_command('serve', 'Serve your site locally', {
+  short_name: 's',
+  action: @(options) {
+    serve(config(this_dir, options))
   }
+}).add_option('config', 'The site JSON configuration file.', {
+  short_name: 'c',
+  type: args.STRING,
+  # default to `_data/config.json` file
+  value: os.join_paths(this_dir, '_data', 'config.json'),
+}).add_option('port', 'The port to serve the site on.', {
+  short_name: 'p',
+  type: args.NUMBER,
+  value: 4000,
+}).add_option('host', 'The host to serve the site on.', {
+  short_name: 'h',
+  type: args.STRING,
+  value: '127.0.0.1',
+})
 
-  options.theme_directory = theme_path
-  options.endpoints = utils.flatten_dict(options.sitemap)
+parser.add_command('init', 'Initializes a new doka project', {
+  short_name: 'i',
+  action: @(options) {}
+})
 
-  var tm = template()
-  tm.set_root(theme_path)
+parser.add_command('theme', 'Initializes a new doka theme only project', {
+  short_name: 't',
+  action: @(options) {}
+})
 
-  # register functions that can be reused by theme authors.
-  tm.register_function('blank', functions.blank)
-  tm.register_function('search_text', functions.search_query)
-
-  var final_sitemap = build(tm.render, options)
-
-  var server = http.server(options.port, options.host)
-  server.on_receive(@(req, res) {
-    if req.path != options.search_page {
-      var path = final_sitemap.endpoints.get(req.path)
-      if path {
-        res.headers.extend(path.headers)
-        res.write(path.content)
-      } else {
-        res.write(final_sitemap[404].content)
-      }
-    } else {
-      search(req, res, tm.render, final_sitemap.endpoints, options)
-    }
-  })
-
-  server.on_error(@(err, _) {
-    echo err.message
-    echo err.stacktrace
-  })
-
-  if options.host == '0.0.0.0' options.host = 'localhost'
-
-  echo 'Server started on port http://${options.host}:${options.port}'
-  server.listen()
-}
+parser.parse()

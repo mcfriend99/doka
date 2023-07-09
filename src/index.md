@@ -1,6 +1,6 @@
 # Readable Sample
 
-This is a demo site for Readable, generated as part of Sphinx Themes Gallery.
+This is a ==demo== site for Readable, generated as part of Sphinx Themes Gallery.
 
 > **Important:** This sample documentation was generated on Jun 19, 2023, and is rebuilt weekly.
 
@@ -61,7 +61,7 @@ This is a caption
 - Long Page
 - External Link
 
-Some pages like Placeholder Page Three are declared in a “hidden” toctree, and thus would not be visible above. However, they are still a part of the overall site hierarchy and some themes may choose to present them to the user in the site navigation.
+Some pages like Placeholder Page Three are declared in a “hidden” toctree, and thus would not be visible above. ++inserted++ However, they are still a part of the overall site hierarchy and some themes may choose to present them to the user in the site navigation.
 
 ---
 

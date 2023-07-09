@@ -1,7 +1,7 @@
 import .utils
 import .content
 import .functions { search_query }
-import .anchor_plugin { slugify }
+import markdown.core.anchor { slugify }
 import os
 
 def clean_string(string) {

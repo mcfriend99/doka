@@ -235,19 +235,6 @@ header {
   position: relative;
 }
 
-/* .table-of-contents ol {
-  counter-reset: list-item;
-}
-
-.table-of-contents li {
-  display: block; 
-  counter-increment: list-item;
-}
-
-.table-of-contents li:before { 
-  content: counters(list-item,'.') ' '; 
-} */
-
 .table-of-contents ul {
   list-style: disc;
 }
@@ -301,6 +288,38 @@ header {
   padding: 7px 5px;
   vertical-align: top;
   overflow-wrap: anywhere;
+}
+
+.content del,
+.content ins {
+    text-decoration: none;
+    position: relative;
+    padding-left: 1.5em;
+}
+
+.content del {
+    background-color: #ffe5df;
+}
+
+.content ins {
+    background-color: #d2ffe0;
+}
+
+.content del::before,
+.content ins::before {
+    position: absolute;
+    left: 0.5rem;
+    font-family: monospace;
+}
+
+.content del::before {
+    content: '−';
+    color: #f44336;
+}
+
+.content ins::before {
+    content: '+';
+    color: #607d8b;
 }
 
 footer {

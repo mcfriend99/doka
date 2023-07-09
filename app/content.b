@@ -3,11 +3,11 @@ import markdown
 import highlight { highlight }
 import .nav
 import .toc_plugin { toc_plugin }
-import .anchor_plugin { anchor_plugin }
+# import .anchor_plugin { anchor_plugin }
 
 var md = markdown({
   highlight: highlight(),
-}).use(toc_plugin).use(anchor_plugin)
+}).use(toc_plugin)/* .use(anchor_plugin) */
 
 def get_template_vars(req, md_file, config) {
   return {

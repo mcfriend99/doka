@@ -18,5 +18,6 @@
   ], 
   "deps": {
     "highlight": "1.0.0"
-  }
+  },
+  "cli": "index.b"
 }
