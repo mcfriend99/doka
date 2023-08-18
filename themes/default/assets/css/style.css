@@ -188,6 +188,7 @@ header {
 .content code {
   background: #eee;
   padding: 0 0.25em;
+  font-size: .8rem;
 }
 
 .content pre {
@@ -322,6 +323,21 @@ header {
     color: #607d8b;
 }
 
+.content h4 {
+  margin: .25rem 0;
+  color: #2b67b5;
+}
+
+.content h4 + p {
+  padding-left: 1rem;
+  margin-top: .5rem;
+}
+
+.content h1 code, .content h2 code, .content h3 code {
+  font-size: 1.4rem;
+  padding: 0 0.3rem;
+}
+
 footer {
   padding: 1rem 0;
   border-top: 1px solid rgba(0,0,0,.1);
@@ -395,4 +411,57 @@ footer {
   .sidebar form {
     padding-right: 0;
   }
+}
+
+/**
+ * highlight package.
+ *
+ * Default recommended styles. 
+ * 
+ * Copy this stylesheet into your project to use te default style. 
+ */
+
+ [class^=language-] .s {
+  color: #690;
+}
+
+[class^=language-] .i {
+  color: #00bcd4;
+}
+
+[class^=language-] .c {
+  color: #ff9800;
+}
+
+[class^=language-] .m {
+  color: #ff5722;
+  font-style: italic;
+}
+
+[class^=language-] .f {
+  color: #ff5722;
+}
+
+[class^=language-] .k {
+  color: #2196f3;
+}
+
+[class^=language-] .c {
+  color: #708090;
+}
+
+[class^=language-] .o {
+  color: #9a6e3a;
+}
+
+[class^=language-] .n {
+  color: #905;
+}
+
+[class^=language-] .p {
+  color: #c4c4c4;
+}
+
+[class^=language-] .e {
+  color: #af0707;
 }

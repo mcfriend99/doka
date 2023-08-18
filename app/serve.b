@@ -13,8 +13,8 @@ def serve(options) {
   var theme_path = os.join_paths(os.cwd(), 'themes', options.theme)
   if !os.dir_exists(theme_path) {
     theme_path = os.join_paths(
-      os.dir_name(os.dir_name(__FILE__)), 
-      'templates', options.theme
+      os.dir_name(os.dir_name(__file__)), 
+      'themes', options.theme
     )
 
     if !os.dir_exists(theme_path) {
@@ -32,22 +32,41 @@ def serve(options) {
   tm.register_function('blank', functions.blank)
   tm.register_function('search_text', functions.search_query)
 
-  var final_sitemap = build(tm.render, options)
-
   var server = http.server(options.port, options.host)
-  server.on_receive(@(req, res) {
-    if req.path != options.search_page {
-      var path = final_sitemap.endpoints.get(req.path)
-      if path {
-        res.headers.extend(path.headers)
-        res.write(path.content)
+
+  if !options.get('dev', false) {
+    var final_sitemap = build(tm.render, options)
+
+    server.on_receive(@(req, res) {
+      if req.path != options.search_page {
+        var path = final_sitemap.endpoints.get(req.path)
+        if path {
+          res.headers.extend(path.headers)
+          res.write(path.content)
+        } else {
+          res.write(final_sitemap[404].content)
+        }
       } else {
-        res.write(final_sitemap[404].content)
+        search(req, res, tm.render, final_sitemap.endpoints, options)
       }
-    } else {
-      search(req, res, tm.render, final_sitemap.endpoints, options)
-    }
-  })
+    })
+  } else {
+    server.on_receive(@(req, res) {
+      var final_sitemap = build(tm.render, options)
+
+      if req.path != options.search_page {
+        var path = final_sitemap.endpoints.get(req.path)
+        if path {
+          res.headers.extend(path.headers)
+          res.write(path.content)
+        } else {
+          res.write(final_sitemap[404].content)
+        }
+      } else {
+        search(req, res, tm.render, final_sitemap.endpoints, options)
+      }
+    })
+  }
 
   server.on_error(@(err, _) {
     echo err.message

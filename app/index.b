@@ -26,6 +26,8 @@ parser.add_command('serve', 'Serve your site locally', {
   short_name: 'h',
   type: args.STRING,
   value: '127.0.0.1',
+}).add_option('dev', 'Serve in dev mode.', {
+  short_name: 'd',
 })
 
 parser.add_command('init', 'Initializes a new doka project', {
