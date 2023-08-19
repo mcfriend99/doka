@@ -1,3 +1,13 @@
+:root {
+  --scheme-color: #2b67b5;
+  --active-color: #ff6347;
+  --static-color: #3e4349;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,7 +24,8 @@ body {
   margin: 0;
   padding: 0;
   /* font-family: -apple-system, "system-ui", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; */
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  /* font-family:Georgia, 'Times New Roman', Times, serif; */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 14px;
   color: #555;
   background: white;
@@ -25,13 +36,13 @@ body {
 
 a {
   text-decoration: none;
-  color: #3e4349;
+  color:  var(--static-color, #3e4349);
   display: contents;
 }
 
 a:hover {
   text-decoration: underline;
-  color: tomato;
+  color: var(--active-color, #ff6347);
 }
 
 img {
@@ -47,7 +58,7 @@ main {
 header {
   border-bottom: 1px solid rgba(0,0,0,.1);
   padding: .5rem 0;
-  background: #2a67b5;
+  background: var(--scheme-color, #2b67b5);
   color: white;
 }
 
@@ -94,12 +105,12 @@ header {
 
 .content {
   flex: 1;
-  background-color: #ffffff;
-  color: #3e4349;
+  /* background-color: #ffffff; */
+  color: var(--static-color, #3e4349);
   padding: 30px;
   font-size: 16px;
   line-height: 1.65;
-  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  /* box-shadow: 0 1px 3px rgba(0,0,0,.15); */
   border-radius: 0.15em;
 }
 
@@ -112,7 +123,7 @@ header {
 .sidebar h3 {
   font-size: 16px;
   text-transform: uppercase;
-  color: #2b67b5;
+  color: var(--scheme-color, #2b67b5);
   margin-top: 0.45em;
 }
 
@@ -136,12 +147,12 @@ header {
 .sidebar form input:focus {
   outline: none;
   outline-color: transparent;
-  border-color: #2b67b5;
+  border-color: var(--scheme-color, #2b67b5);
 }
 
 .sidebar form button {
   border: 1px solid rgba(0,0,0,.1);
-  background: #2b67b5;
+  background: var(--scheme-color, #2b67b5);
   color: white;
   padding: 0.25em 0.75em;
   margin-left: 0.25rem;
@@ -196,7 +207,7 @@ header {
   padding: 0.75rem;
   border: 1px solid #C6C9CB;
   border-radius: 0.15rem;
-  box-shadow: 0 1px 1px rgba(0,0,0,.1);
+  /* box-shadow: 0 1px 1px rgba(0,0,0,.1); */
   display: grid;
   font-size: 0.8em;
 }
@@ -217,6 +228,7 @@ header {
   padding: 0.01rem 1rem;
   background: #eee;
   border: 1px solid #ccc;
+  font-size: .85rem;
 }
 
 .content ol {
@@ -241,7 +253,7 @@ header {
 }
 
 .content a, .content a:hover {
-  color: tomato;
+  color: var(--active-color, #ff6347);
 }
 
 .content p {
@@ -258,7 +270,7 @@ header {
   text-transform: uppercase;
   font-size: 0.9em;
   padding: 1rem 0 0.5rem 0;
-  color: #2b67b5;
+  color: var(--scheme-color, #2b67b5);
   font-weight: 600;
 }
 
@@ -321,21 +333,6 @@ header {
 .content ins::before {
     content: '+';
     color: #607d8b;
-}
-
-.content h4 {
-  margin: .25rem 0;
-  color: #2b67b5;
-}
-
-.content h4 + p {
-  padding-left: 1rem;
-  margin-top: .5rem;
-}
-
-.content h1 code, .content h2 code, .content h3 code {
-  font-size: 1.4rem;
-  padding: 0 0.3rem;
 }
 
 footer {
@@ -420,6 +417,9 @@ footer {
  * 
  * Copy this stylesheet into your project to use te default style. 
  */
+ [class^=language-] {
+  position: relative;
+ }
 
  [class^=language-] .s {
   color: #690;
@@ -429,7 +429,7 @@ footer {
   color: #00bcd4;
 }
 
-[class^=language-] .c {
+[class^=language-] .x {
   color: #ff9800;
 }
 
@@ -463,5 +463,35 @@ footer {
 }
 
 [class^=language-] .e {
-  color: #af0707;
+  color: #e91e63;
+}
+
+pre:has(> [class*=-repl]) {
+  position: relative;
+}
+
+pre:has(> [class*=-repl])::after {
+  content: "Repl";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  font-size: 78%;
+  padding: 0 0.75em;
+  border-bottom-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
+  color: var(--scheme-color, #2b67b5);
+  cursor: pointer;
+  border: 1px solid var(--scheme-color, #2b67b5);
+}
+
+pre.off:has(> [class*=-repl])::after {
+  text-decoration: line-through;
+}
+
+pre.off [class*=-repl] {
+  transition: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p {
+  display: none;
 }
