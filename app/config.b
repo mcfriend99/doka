@@ -41,11 +41,11 @@ def config(this_dir, options) {
   options.set('home_title', 'Home')
 
   # nav configuration
-  options.set('nav_class', 'menu-list')
-  options.set('nav_item_class', '')
-  options.set('nav_link_class', '')
-  options.set('nav_section_class', '')
-  options.set('active_nav_class', 'is-active')
+  # options.set('nav_class', 'menu-list')
+  # options.set('nav_item_class', '')
+  # options.set('nav_link_class', '')
+  # options.set('nav_section_class', '')
+  # options.set('active_nav_class', 'is-active')
 
   var config_file = file(options.config)
   if config_file.exists() {

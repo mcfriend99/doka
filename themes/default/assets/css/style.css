@@ -167,6 +167,11 @@ header {
   margin-left: 13px;
 }
 
+.menu-list li.is-active, .menu-list li.is-active a {
+  color: var(--active-color);
+  font-weight: bold;
+}
+
 .content h1, .content h2, .content h3 {
   border-bottom: 1px solid #ddd;
   font-weight: 400;
@@ -335,6 +340,27 @@ header {
     color: #607d8b;
 }
 
+.content dl {
+  padding-left: 0.85rem;
+  margin: 0;
+}
+
+.content dt {
+  font-weight: bold;
+}
+
+.content dd {
+  margin-left: 1.5rem;
+}
+
+.content dd + dt {
+  padding-top: 0.5rem;
+}
+
+.content dl dd:last-child {
+  padding-bottom: .75rem;
+}
+
 footer {
   padding: 1rem 0;
   border-top: 1px solid rgba(0,0,0,.1);
@@ -422,40 +448,40 @@ footer {
  }
 
  [class^=language-] .s {
-  color: #690;
+  color: #007936;
 }
 
 [class^=language-] .i {
-  color: #00bcd4;
+  color: #690;
 }
 
 [class^=language-] .x {
-  color: #ff9800;
+  color: #872bff;
 }
 
 [class^=language-] .m {
-  color: #ff5722;
+  color: #d30038;
   font-style: italic;
 }
 
 [class^=language-] .f {
-  color: #ff5722;
+  color: #d30038;
 }
 
 [class^=language-] .k {
-  color: #2196f3;
+  color: #0069c2;
 }
 
 [class^=language-] .c {
-  color: #708090;
+  color: #858585;
 }
 
 [class^=language-] .o {
-  color: #9a6e3a;
+  color: #858585;
 }
 
 [class^=language-] .n {
-  color: #905;
+  color: #007936;
 }
 
 [class^=language-] .p {
@@ -463,7 +489,7 @@ footer {
 }
 
 [class^=language-] .e {
-  color: #e91e63;
+  color: #ff7989;
 }
 
 pre:has(> [class*=-repl]) {
