@@ -49,15 +49,11 @@ def config(this_dir, options) {
 
   var config_file = file(options.config)
   if config_file.exists() {
-    var config_content = config_file.read().trim()
-
-    if config_content {
-      var decoded = json.decode(config_content)
-      if is_dict(decoded) {
-        options.extend(decoded)
-      } else if decoded {
-        die Exception('Invalid config file!')
-      }
+    var decoded = json.parse(options.config) or {}
+    if is_dict(decoded) {
+      options.extend(decoded)
+    } else if decoded {
+      die Exception('Invalid config file!')
     }
   }
 
@@ -83,16 +79,9 @@ def config(this_dir, options) {
     # unset the sitemap if it does not exist.
     options.set('sitemap', nil)
   } else {
-    var sitemap_content = sitemap_file.read().trim()
-    var sitemap_exception = Exception('Invalid sitemap at "${sitemap_file.path()}"')
-
-    if sitemap_content {
-      options.sitemap = json.decode(sitemap_content)
-      if !is_dict(options.sitemap) {
-        die sitemap_exception
-      }
-    } else {
-      die sitemap_exception
+    options.sitemap = json.parse(sitemap_file.path()) or {}
+    if !is_dict(options.sitemap) {
+      die Exception('Invalid sitemap at "${sitemap_file.path()}"')
     }
   }
 
@@ -101,15 +90,9 @@ def config(this_dir, options) {
     options.get('${theme}_config', os.join_paths(this_dir, '_data', '${theme}.json'))
   )
   if theme_config_file.exists() {
-    var theme_config_content = theme_config_file.read().trim()
-
-    if theme_config_content {
-      options.theme_config = json.decode(theme_config_content)
-      if !is_dict(options.theme_config) {
-        die Exception('Invalid theme configuration file.')
-      }
-    } else {
-      options.theme_config = {}
+    options.theme_config = json.parse(theme_config_file.path()) or {}
+    if !is_dict(options.theme_config) {
+      die Exception('Invalid theme configuration file.')
     }
   } else {
     options.theme_config = {}
@@ -120,7 +103,7 @@ def config(this_dir, options) {
     os.dir_name(os.dir_name(__file__)),
     'nyssa.json'
   )
-  options.doka = json.decode(file(nyssa_config).read())
+  options.doka = json.parse(nyssa_config)
 
   return options
 }

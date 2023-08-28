@@ -3,6 +3,37 @@ import mime
 import hash
 import .content
 import .utils { get_file_list }
+import json
+
+def get_theme_path(options) {
+  var theme_path = os.join_paths(os.cwd(), 'themes', options.theme)
+  if !os.dir_exists(theme_path) {
+    theme_path = os.join_paths(
+      os.dir_name(os.dir_name(__file__)), 
+      'themes', options.theme
+    )
+
+    if !os.dir_exists(theme_path) {
+      die Exception('Theme "${options.theme}" not found!')
+    }
+
+    if options.theme_config.length() == 0 {
+      var theme_config_file = file(os.join_paths(
+        os.dir_name(os.dir_name(__file__)), 
+        'themes', options.theme, '_data', 'config.json'
+      ))
+
+      if theme_config_file.exists() and !os.is_dir(theme_config_file.path()) {
+        options.theme_config = json.parse(theme_config_file.path()) or {}
+        if !is_dict(options.theme_config) {
+          die Exception('Invalid theme configuration file.')
+        }
+      }
+    }
+  }
+
+  return theme_path
+}
 
 def create_asset_output(asset, source_dir, output_dir, options) {
   var output_file = os.join_paths(
@@ -24,10 +55,8 @@ def do_asset_build(assets, root, output_dir, options, map) {
     var content = reader.read()
 
     map[asset] = {
-      file: reader,
-      content: content,
+      file: reader.path(),
       title: '',
-      md: '',
       headers: {
         'Cache-Control': 'public, max-age=31536000, s-maxage=31536000, immutable', # cache for 1 year
         'Etag': 'W/"${hash.md5(content)}"',
@@ -57,10 +86,12 @@ def build_assets(options, output_dir) {
   return map
 }
 
-def build_endpoints(template, options, output_dir) {
+def build_endpoints(template, options, output_dir, target) {
   var map = {}
 
   for key, value in options.endpoints {
+    if target and key != target continue
+
     var template_type = value.get('type', 'page')
 
     var markdown_file = file(os.join_paths(options.root, value.source + '.md'))
@@ -87,9 +118,7 @@ def build_endpoints(template, options, output_dir) {
     var reader = file(html_file)
     var content = reader.read()
     map[key] = {
-      file: reader,
-      content: content,
-      md: markdown_file.read(),
+      file: reader.path(),
       title: value.title,
       headers: {},
     }
@@ -118,16 +147,15 @@ def build_error_page(template, error_code, output_dir, options) {
   file(html_file, 'w').write(rendered_content)
 
   var file_handle = file(html_file)
+  
   return {
-    file: file_handle,
-    content: file_handle.read(),
+    file: file_handle.path(),
     headers: {},
     title: '',
-    md: '',
   }
 }
 
-def build(template, options) {
+def build(template, options, target) {
   
   var output_dir = options.cache
   if os.dir_exists(output_dir) {
@@ -138,13 +166,20 @@ def build(template, options) {
   # build sitemap endpoints first so that assets override them. i.e. 
   # if a sitemap shares exactly the same path with an asset, the asset 
   # will be served instead.
-  var endpoints = build_endpoints(template, options, output_dir)
+  var endpoints = build_endpoints(template, options, output_dir, target)
   endpoints.extend(build_assets(options, output_dir))
 
   # build the 404 page.
+  var page_404 = build_error_page(template, 404, output_dir, options)
 
-  return {
+  var result = {
     endpoints,
-    404: build_error_page(template, 404, output_dir, options)
+    '404': page_404
   }
+
+  if !target {
+    file(os.join_paths(output_dir, '_sitemap.json'), 'w').write(json.encode(result, false))
+  }
+
+  return result
 }

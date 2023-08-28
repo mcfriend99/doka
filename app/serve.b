@@ -10,38 +10,8 @@ import .search
 def serve(options) {
   if !os.dir_exists(options.root)
     die Exception('Invalid source directory!')
-
-  var theme_path = os.join_paths(os.cwd(), 'themes', options.theme)
-  if !os.dir_exists(theme_path) {
-    theme_path = os.join_paths(
-      os.dir_name(os.dir_name(__file__)), 
-      'themes', options.theme
-    )
-
-    if !os.dir_exists(theme_path) {
-      die Exception('Theme "${options.theme}" not found!')
-    }
-
-    if options.theme_config.length() == 0 {
-      var theme_config_file = file(os.join_paths(
-        os.dir_name(os.dir_name(__file__)), 
-        'themes', options.theme, '_data', 'config.json'
-      ))
-
-      if theme_config_file.exists() and !os.is_dir(theme_config_file.path()) {
-        var theme_config_content = theme_config_file.read().trim()
-
-        if theme_config_content {
-          options.theme_config = json.decode(theme_config_content)
-          if !is_dict(options.theme_config) {
-            die Exception('Invalid theme configuration file.')
-          }
-        }
-      }
-    }
-  }
-
-  options.theme_directory = theme_path
+  
+  var theme_path = options.theme_directory = build.get_theme_path(options)
   options.endpoints = utils.flatten_dict(options.sitemap)
 
   var tm = template()
@@ -54,16 +24,36 @@ def serve(options) {
   var server = http.server(options.port, options.host)
 
   if !options.get('dev', false) {
-    var final_sitemap = build(tm.render, options)
+    var final_sitemap
+
+    var cache_sitemap_file = file(os.join_paths(options.cache, '_sitemap.json'))
+    if cache_sitemap_file.exists() {
+      final_sitemap = json.parse(cache_sitemap_file.path())
+    } else {
+      final_sitemap = build(tm.render, options)
+    }
 
     server.on_receive(@(req, res) {
       if req.path != options.search_page {
         var path = final_sitemap.endpoints.get(req.path)
         if path {
           res.headers.extend(path.headers)
+
+          # read on demand
+          if !path.contains('content') {
+            path.content = file(path.file).read()
+          }
+
           res.write(path.content)
         } else {
-          res.write(final_sitemap[404].content)
+          # read on demand
+          var page_404 = final_sitemap['404']
+
+          if !page_404.contains('content') {
+            page_404.content = file(page_404.file).read()
+          }
+
+          res.write(page_404.content)
         }
       } else {
         search(req, res, tm.render, final_sitemap.endpoints, options)
@@ -71,15 +61,15 @@ def serve(options) {
     })
   } else {
     server.on_receive(@(req, res) {
-      var final_sitemap = build(tm.render, options)
+      var final_sitemap = build(tm.render, options, req.path)
 
       if req.path != options.search_page {
         var path = final_sitemap.endpoints.get(req.path)
         if path {
           res.headers.extend(path.headers)
-          res.write(path.content)
+          res.write(file(path.file).read())
         } else {
-          res.write(final_sitemap[404].content)
+          res.write(file(final_sitemap['404'].file).read())
         }
       } else {
         search(req, res, tm.render, final_sitemap.endpoints, options)
