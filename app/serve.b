@@ -1,6 +1,5 @@
 import http
 import os
-import template
 import json
 import .utils
 import .functions
@@ -10,17 +9,8 @@ import .search
 def serve(options) {
   if !os.dir_exists(options.root)
     die Exception('Invalid source directory!')
-  
-  var theme_path = options.theme_directory = build.get_theme_path(options)
-  options.endpoints = utils.flatten_dict(options.sitemap)
 
-  var tm = template()
-  tm.set_root(theme_path)
-
-  # register functions that can be reused by theme authors.
-  tm.register_function('blank', functions.blank)
-  tm.register_function('search_text', functions.search_query)
-
+  var tm = utils.init_template(options.theme_directory)
   var server = http.server(options.port, options.host)
 
   if !options.get('dev', false) {

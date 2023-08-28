@@ -23,12 +23,8 @@
 # SOFTWARE.
 
 
-import url
 import json
-
-def slugify(x) {
-  return url.encode(to_string(x).trim().lower().replace('/\s+/', '-'))
-}
+import markdown.core.anchor { slugify, unique_slug }
 
 def htmlencode(x) {
   return to_string(x).replace('/&/', '&amp;').
@@ -42,7 +38,6 @@ def toc_plugin(md, opts) {
   if !opts opts = []
   var options = {
     placeholder: '(\\\$\{toc\}|\[\[?_?toc_?\]?\]|\\\$\<toc(\{[^}]*\})\>)',
-    slugify,
     unique_slug_start_index: 1,
     container_class: 'table-of-contents',
     container_id: nil,
@@ -119,15 +114,7 @@ def toc_plugin(md, opts) {
       _options.extend(token.inline_options)
     }
 
-    var uniques = {}
-    def unique(s) {
-      var u = s
-      var i = _options.unique_slug_start_index
-      while uniques.contains(u) u = '${s}-${i++}'
-      uniques[u] = true
-      return u
-    }
-
+    var slugs = {}
     var is_level_selected_number = @(selection) { return @(level) { return level >= selection } }
     var is_level_selected_array = @(selection) { return @(level) { return selection.contains(level) }  }
 
@@ -148,7 +135,12 @@ def toc_plugin(md, opts) {
       }
       tree.c.each(@(node) {
         if is_level_selected(node.l) {
-          buffer += ('<li${item_class}><a${link_class} href="#${unique(options.slugify(node.n))}">${is_function(_options.format) ? _options.format(node.n, htmlencode) : htmlencode(node.n)}</a>${ast2html(node)}</li>')
+          buffer += '<li${item_class}>' +
+            '<a${link_class} href="#' +
+            unique_slug(slugify(node.n), slugs) +
+            '">' +
+            (is_function(_options.format) ? _options.format(node.n, htmlencode) : htmlencode(node.n)) +
+            '</a>${ast2html(node)}</li>'
         } else {
           buffer += ast2html(node)
         }

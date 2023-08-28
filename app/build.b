@@ -2,38 +2,8 @@ import os
 import mime
 import hash
 import .content
-import .utils { get_file_list }
+import .utils { get_file_list, init_template }
 import json
-
-def get_theme_path(options) {
-  var theme_path = os.join_paths(os.cwd(), 'themes', options.theme)
-  if !os.dir_exists(theme_path) {
-    theme_path = os.join_paths(
-      os.dir_name(os.dir_name(__file__)), 
-      'themes', options.theme
-    )
-
-    if !os.dir_exists(theme_path) {
-      die Exception('Theme "${options.theme}" not found!')
-    }
-
-    if options.theme_config.length() == 0 {
-      var theme_config_file = file(os.join_paths(
-        os.dir_name(os.dir_name(__file__)), 
-        'themes', options.theme, '_data', 'config.json'
-      ))
-
-      if theme_config_file.exists() and !os.is_dir(theme_config_file.path()) {
-        options.theme_config = json.parse(theme_config_file.path()) or {}
-        if !is_dict(options.theme_config) {
-          die Exception('Invalid theme configuration file.')
-        }
-      }
-    }
-  }
-
-  return theme_path
-}
 
 def create_asset_output(asset, source_dir, output_dir, options) {
   var output_file = os.join_paths(
@@ -182,4 +152,9 @@ def build(template, options, target) {
   }
 
   return result
+}
+
+def run(options) {
+  var tm = init_template(options.theme_directory)
+  build(tm.render, options)
 }

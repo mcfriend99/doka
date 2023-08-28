@@ -1,37 +1,9 @@
 import args
 import json
 import os
+import .utils
 
 def config(this_dir, options) {
-
-  /* # var this_dir = os.cwd()
-
-  # parse cli arguments
-  var parser = args.Parser('doka')
-
-  # config file
-  parser.add_option('config', 'The site JSON configuration file.', {
-    short_name: 'c',
-    type: args.STRING,
-    # default to `_data/config.json` file
-    value: os.join_paths(this_dir, '_data', 'config.json'),
-  })
-
-  # port
-  parser.add_option('port', 'The port to serve the site on.', {
-    short_name: 'p',
-    type: args.NUMBER,
-    value: 4000,
-  })
-
-  # host
-  parser.add_option('host', 'The host to serve the site on.', {
-    short_name: 'h',
-    type: args.STRING,
-    value: '127.0.0.1',
-  })
-
-  var options =  parser.parse().options */
 
   # set the default theme
   options.set('theme', 'default')
@@ -39,13 +11,6 @@ def config(this_dir, options) {
   options.set('app_name', 'Doka')
   # default homepage title
   options.set('home_title', 'Home')
-
-  # nav configuration
-  # options.set('nav_class', 'menu-list')
-  # options.set('nav_item_class', '')
-  # options.set('nav_link_class', '')
-  # options.set('nav_section_class', '')
-  # options.set('active_nav_class', 'is-active')
 
   var config_file = file(options.config)
   if config_file.exists() {
@@ -104,6 +69,10 @@ def config(this_dir, options) {
     'nyssa.json'
   )
   options.doka = json.parse(nyssa_config)
+
+  # auto-generated options
+  options.theme_directory = utils.get_theme_path(options)
+  options.endpoints = utils.flatten_dict(options.sitemap)
 
   return options
 }
