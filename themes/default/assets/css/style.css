@@ -1,7 +1,26 @@
 :root {
   --scheme-color: #2b67b5;
-  --active-color: #ff6347;
+  --header-color: var(--scheme-color);
+  --active-color: var(--scheme-color);
   --static-color: #3e4349;
+  --text-color: #555;
+  --bg-color: #f4f7f8;
+  --logo-color: rgb(255 255 255 / 88%);
+  --alt-text-color: white;
+  --code-bg-color: #eee;
+  --pre-bg-color: #f5f5f5;
+  --pre-border-color: color-mix(in srgb, var(--pre-bg-color), black 15%);
+  --quote-bg-color: #eee;
+  --quote-border-color: color-mix(in srgb, var(--quote-bg-color), black 10%);
+  --table-header-color: #e6f1ff;
+  --hr-color: rgba(0,0,0,.1);
+  --del-color: #ffe5df;
+  --ins-color: #d2ffe0;
+  --result-title-color: #607d8b;
+  --sidebar-color: #f1f5f6;
+  --input-bg-color: white;
+  --input-border-color: color-mix(in srgb, var(--input-bg-color), black 10%);
+  --code-font-family: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace;
 }
 
 html {
@@ -27,10 +46,9 @@ body {
   /* font-family:Georgia, 'Times New Roman', Times, serif; */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 14px;
-  color: #555;
-  background: white;
+  color: var(--text-color, #555);
   line-height: 1.5;
-  background: #f4f7f8;
+  background: var(--bg-color, #f4f7f8);
   scroll-behavior: smooth;
 }
 
@@ -58,8 +76,8 @@ main {
 header {
   border-bottom: 1px solid rgba(0,0,0,.1);
   padding: .5rem 0;
-  background: var(--scheme-color, #2b67b5);
-  color: white;
+  background: var(--header-color, #2b67b5);
+  color: var(--alt-text-color, white);
 }
 
 .header, .footer {
@@ -75,7 +93,7 @@ header {
 }
 
 .header .logo a, .header .logo a:hover, .header .logo a:active {
-  color: rgb(255 255 255 / 88%);
+  color: var(--logo-color);
   text-decoration: none;
 }
 
@@ -91,7 +109,7 @@ header {
 .header .links a, .header .links span {
   padding: 0 0.5rem;
   display: block;
-  color: white;
+  color: var(--alt-text-color, white);
 }
 
 .document {
@@ -123,7 +141,7 @@ header {
 .sidebar h3 {
   font-size: 16px;
   text-transform: uppercase;
-  color: var(--scheme-color, #2b67b5);
+  color: var(--active-color, #2b67b5);
   margin-top: 0.45em;
 }
 
@@ -138,10 +156,12 @@ header {
 
 .sidebar form input {
   flex: 1;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid var(--input-border-color);
   padding: 0.25em 0.5em;
   outline: none;
   border-radius: 0.2em;
+  background-color: var(--input-bg-color, white);
+  color: var(--static-color);
 }
 
 .sidebar form input:focus {
@@ -151,9 +171,9 @@ header {
 }
 
 .sidebar form button {
-  border: 1px solid rgba(0,0,0,.1);
-  background: var(--scheme-color, #2b67b5);
-  color: white;
+  border: 1px solid var(--hr-color);
+  background: var(--active-color, #2b67b5);
+  color: var(--alt-text-color);
   padding: 0.25em 0.75em;
   margin-left: 0.25rem;
   border-radius: 0.2rem;
@@ -173,7 +193,7 @@ header {
 }
 
 .content h1, .content h2, .content h3 {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--hr-color, #ddd);
   font-weight: 400;
   line-height: 1.1;
 }
@@ -202,17 +222,16 @@ header {
 }
 
 .content code {
-  background: #eee;
+  background: var(--code-bg-color, #eee);
   padding: 0 0.25em;
   font-size: .8rem;
 }
 
 .content pre {
-  background: #f5f5f5;
+  background: var(--pre-bg-color, #f5f5f5);
   padding: 0.75rem;
-  border: 1px solid #C6C9CB;
+  border: 1px solid var(--pre-border-color, #c6c9cb);
   border-radius: 0.15rem;
-  /* box-shadow: 0 1px 1px rgba(0,0,0,.1); */
   display: grid;
   font-size: 0.8em;
 }
@@ -225,14 +244,14 @@ header {
 }
 
 .content pre, .content tt, .content code {
-  font-family: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace;
+  font-family: var(--code-font-family, SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace);
 }
 
 .content blockquote {
   margin: 0;
   padding: 0.01rem 1rem;
-  background: #eee;
-  border: 1px solid #ccc;
+  background: var(--quote-bg-color, #eee);
+  border: 1px solid var(--quote-border-color, #ccc);
   font-size: .85rem;
 }
 
@@ -291,7 +310,7 @@ header {
 }
 
 .content table thead {
-  background: #e6f1ff;
+  background: var(--table-header-color, #e6f1ff);
 }
 
 .content thead tr th {
@@ -302,7 +321,7 @@ header {
 
 .content table tbody tr th, .content table tbody tr td {
   border-bottom: 0;
-  border-top: solid 1px #ddd;
+  border-top: solid 1px var(--hr-color, #ddd);
   padding: 7px 5px;
   vertical-align: top;
   overflow-wrap: anywhere;
@@ -316,11 +335,11 @@ header {
 }
 
 .content del {
-    background-color: #ffe5df;
+    background-color: var(--del-color, #ffe5df);
 }
 
 .content ins {
-    background-color: #d2ffe0;
+    background-color: var(--ins-color, #d2ffe0);
 }
 
 .content del::before,
@@ -363,7 +382,7 @@ header {
 
 footer {
   padding: 1rem 0;
-  border-top: 1px solid rgba(0,0,0,.1);
+  border-top: 1px solid var(--hr-color);
   margin-top: 2.45rem;
 }
 
@@ -394,7 +413,7 @@ footer {
   margin-top: 0;
   margin-bottom: 0;
   padding: .25rem .25rem .25rem 1rem;
-  color: #607D8B;
+  color: var(--result-title-color, #607D8B);
 }
 
 @media screen and (max-width: 870px) {
@@ -419,12 +438,14 @@ footer {
   .sidebar {
     width: 100%;
     padding: 20px;
-    background: #f1f5f6;
-    border-top: 1px solid rgba(0,0,0,.1);
+    padding-bottom: 4em;
+    background: var(--sidebar-color, #f1f5f6);
+    border-top: 1px solid var(--hr-color);
   }
 
   footer {
-    background: #f1f5f6;
+    margin-top: 0;
+    background: var(--sidebar-color, #f1f5f6);
   }
 
   .header .logo {
@@ -505,9 +526,9 @@ pre:has(> [class*=-repl])::after {
   padding: 0 0.75em;
   border-bottom-left-radius: 0.25em;
   border-top-right-radius: 0.25em;
-  color: var(--scheme-color, #2b67b5);
+  color: var(--active-color, #2b67b5);
   cursor: pointer;
-  border: 1px solid var(--scheme-color, #2b67b5);
+  border: 1px solid var(--active-color, #2b67b5);
 }
 
 pre.off:has(> [class*=-repl])::after {
@@ -520,4 +541,30 @@ pre.off [class*=-repl] {
 
 pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p {
   display: none;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --active-color: color-mix(in srgb, var(--scheme-color), #fff 20%);
+    --header-color: #202124;
+    --static-color: #f6f6f6;
+    --text-color: #f6f6f6;
+    --bg-color: #202124;
+    --logo-color: rgb(255 255 255 / 88%);
+    --alt-text-color: white;
+    --code-bg-color: #0f0f0f98;
+    --quote-bg-color: #0f0f0f69;
+    --pre-bg-color: #2f2f2f;
+    --pre-border-color: #404040;
+    --quote-border-color: #404040;
+    --table-header-color: #1a1b1d;
+    --hr-color: #404040;
+    --del-color: #ffe5dfc9;
+    --ins-color: #d2ffe0c9;
+    --result-title-color: #607d8b;
+    --sidebar-color: #1b1c1e;
+    --input-bg-color: #303134;
+    --input-border-color: #303134;
+  }
 }

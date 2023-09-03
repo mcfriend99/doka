@@ -155,6 +155,8 @@ def build(template, options, target) {
 }
 
 def run(options) {
+  echo 'Building Doka project...'
   var tm = init_template(options.theme_directory)
   build(tm.render, options)
+  echo 'Doka project successfully built!'
 }
