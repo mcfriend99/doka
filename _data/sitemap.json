@@ -3,17 +3,67 @@
     "source": "index",
     "title": "Home"
   },
-  "/kitchen-sink": {
-    "source": "kitchen/index",
-    "title": "Kitchen Sink",
+  "/getting-started": {
+    "source": "getting-started/index",
+    "title": "Getting Started",
     "children": {
-      "/kitchen-sink/table": {
-        "source": "kitchen/table",
-        "title": "Tables"
+      "/getting-started/installation": {
+        "source": "getting-started/installation",
+        "title": "Installation"
       },
-      "/kitchen-sink/structure": {
-        "source": "kitchen/structure",
-        "title": "Structural Elements"
+      "/getting-started/sitemap": {
+        "source": "getting-started/sitemap",
+        "title": "Sitemaps"
+      },
+      "/getting-started/configuration": {
+        "source": "getting-started/configuration",
+        "title": "Configuration"
+      }
+    }
+  },
+  "/guides": {
+    "source": "guides/index",
+    "title": "Guides",
+    "children": {
+      "/guides/page": {
+        "source": "guides/pages",
+        "title": "Guides"
+      },
+      "/guides/creating-docs": {
+        "source": "guides/creating-docs",
+        "title": "Creating Docs"
+      },
+      "/guides/menu": {
+        "source": "guides/menu",
+        "title": "Menu"
+      },
+      "/guides/search": {
+        "source": "guides/search",
+        "title": "Search"
+      },
+      "/guides/styling": {
+        "source": "guides/styling",
+        "title": "Styling"
+      },
+      "/guides/assets": {
+        "source": "guides/assets",
+        "title": "Static Assets"
+      },
+      "/guides/toc": {
+        "source": "guides/table-of-contents",
+        "title": "Table of Contents"
+      },
+      "/guides/blog": {
+        "source": "guides/blog",
+        "title": "Blog"
+      },
+      "/guides/seo": {
+        "source": "guides/seo",
+        "title": "SEO"
+      },
+      "/guides/deployment": {
+        "source": "guides/deployment",
+        "title": "Deployment"
       }
     }
   }

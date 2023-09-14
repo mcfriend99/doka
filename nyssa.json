@@ -17,7 +17,7 @@
     "https://nyssa.bladelang.com"
   ], 
   "deps": {
-    "highlight": "1.0.3"
+    "highlight": "1.0.4"
   }, 
   "cli": "index.b"
 }

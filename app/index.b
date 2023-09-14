@@ -13,7 +13,7 @@ var default_config = os.join_paths(this_dir, '_data', 'config.json')
 var parser = args.Parser('doka')
 
 # SERVE
-parser.add_command('serve', 'Serve your site locally', {
+parser.add_command('serve', 'Serve your site.', {
   action: @(options) {
     serve(config(this_dir, options))
   }
@@ -31,10 +31,12 @@ parser.add_command('serve', 'Serve your site locally', {
   value: '127.0.0.1',
 }).add_option('dev', 'Serve in dev mode.', {
   short_name: 'd',
+}).add_option('silent', 'Disable request logging.', {
+  short_name: 's',
 })
 
 # BUILD
-parser.add_command('build', 'Builds the static site', {
+parser.add_command('build', 'Builds the static site.', {
   action: @(options) {
     build.run(config(this_dir, options))
   }
@@ -46,7 +48,7 @@ parser.add_command('build', 'Builds the static site', {
 })
 
 # INIT
-parser.add_command('init', 'Initializes a new doka project', {
+parser.add_command('create', 'Initializes a new doka application.', {
   action: @(options) {
     init.new_app(options)
   }
@@ -57,11 +59,11 @@ parser.add_command('init', 'Initializes a new doka project', {
 }).add_option('name', 'The application name - Default: Sample App.', {
   short_name: 'n',
   type: args.STRING,
-  value: 'Sample App'
+  value: ''
 })
 
 # THEME
-parser.add_command('add:theme', 'Initializes a new doka theme.', {
+parser.add_command('new-theme', 'Initializes a new doka theme.', {
   action: @(options) {
     init.new_theme(options.name, this_dir)
   }

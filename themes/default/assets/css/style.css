@@ -543,6 +543,10 @@ pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p 
   display: none;
 }
 
+.content blockquote code {
+  background: var(--pre-border-color, #eee);
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -566,5 +570,9 @@ pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p 
     --sidebar-color: #1b1c1e;
     --input-bg-color: #303134;
     --input-border-color: #303134;
+  }
+
+  [class^=language-] .s {
+    color: #2dcb74;
   }
 }

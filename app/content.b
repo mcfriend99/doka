@@ -3,6 +3,7 @@ import markdown
 import highlight { highlight }
 import .nav
 import .toc_plugin { toc_plugin }
+import .vars_plugin { vars_plugin }
 
 var md = markdown({
   highlight: highlight(),
@@ -10,6 +11,8 @@ var md = markdown({
 }).use(toc_plugin)
 
 def get_template_vars(req, md_file, config) {
+  md.use(@(md, options){  return vars_plugin(md, config) })
+  
   return {
     navs: {
       main: nav.create_navigation(config.sitemap, req.path, config),

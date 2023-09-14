@@ -1,68 +1,52 @@
-# Readable Sample
+# Introduction
 
-This is a ==demo== site for Readable, generated as part of Sphinx Themes Gallery.
+Doka helps you **create beautiful documentation sites from markdown files**
+without taking the steering from your hands.
 
-> **Important:** This sample documentation was generated on Jun 19, 2023, and is rebuilt weekly.
+Doka is built in [Blade](https://bladelang.com) and that's all that's required to run Doka.
 
-[[toc]]
+## Getting Started
 
-## Quickstart
+You can install Doka from nyssa:
 
-- Install this theme:
-  
-  ```
-  $ pip install sphinx-readable-theme
-  ```
+```
+nyssa install -g doka
+```
 
-- Set the following in your existing Sphinx documentation’s `conf.py` file:
-  
-  ```blade
-  import sphinx_readable_theme
-  var html_theme = 'readable'
-  var html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
-  ```
+Create a new Doka site by running the commands:
 
-- Build your Sphinx documentation with the new theme! [1](#quickstart)
+```
+doka create -r my-website
+```
 
-## Documentation
+And start the site:
 
-This theme does not have any hosted-on-the-web documentation.
+```
+cd my-website/
+doka serve --dev
+```
 
-## Exploration
+Open [http://localhost:4000](http://localhost:4000) and see your website.
 
-The [Kitchen Sink](/kitchen-sink) section contains pages that contains basically everything that you can with Sphinx “out-of-the-box”.
+Now open the file at `src/index.md` inside the `my-wesbite` folder and add some text and 
+reload your browser page to see your changes. Viola!
 
-- Kitchen Sink
-  - Admonitions
-  - API documentation
-  - Blocks
-  - Generic items
-  - Images & Figures
-  - Lists
-  - Really Long Page Title because we should test sidebar wrapping
-  - Structural Elements
-  - Structural Elements 2
-  - Tables
-  - Typography
+## Features
 
-Browsing through that section should give you a good idea of how stuff looks in this theme.
+- Simple: Markdown and JSON knowledge is all you need to create a site with 
+  Doka.
+- Customizable: You can customize Doka to your hearts desire with various 
+  themes and theme boilerplates.
+  Configurable: Everything can be configured in Doka. Even the themes.
+- Search: You can search your entire website quickly.
+- Fast: Doka has been built optimized for blazing speed.
 
-## Navigation
 
-This is the most important part of a documentation theme. If you like the general look of the theme, please make sure that it is possible to easily navigate through this sample documentation.
+## Something missing?
 
-Ideally, the pages listed below should also be reachable via links somewhere else on this page (like the sidebar, or a topbar). If they are not, then this theme might need additional configuration to provide the sort of site navigation that’s necessary for “real” documentation.
+If you find issues with the documentation or have suggestions on how to improve the 
+documentation or the project in general, please file an issue for us.
 
-This is a caption
-
-- Placeholder Page One
-- Placeholder Page Two
-- This is just a page with a really long title for checking how the theme handles these situations
-- Long Page
-- External Link
-
-Some pages like Placeholder Page Three are declared in a “hidden” toctree, and thus would not be visible above. ++inserted++ However, they are still a part of the overall site hierarchy and some themes may choose to present them to the user in the site navigation.
-
----
-
-[1](#exploration) If you hit an error while building documentation with a new theme, it is likely due to some theme-specific configuration in the `conf.py` file of that documentation. These are usually `html_sidebars`, `html_theme_path` or `html_theme_config`. Unsetting those will likely allow the build to proceed.
+For new feature requests, you can create a new issue on our 
+[Github](https://github.com/mcfriend99/doka) or make a Pull Request for new features 
+if you are up for it.

@@ -3,7 +3,7 @@ import json
 
 def new_app(options) {
   var root = options.root, 
-      name = options.name
+      name = options.get('name', os.base_name(options.root))
 
   # snapshot original root for use in feedback message.
   var the_root = root.trim(), this_dir = os.cwd()

@@ -9,8 +9,6 @@ def config(this_dir, options) {
   options.set('theme', 'default')
   # default application name
   options.set('app_name', 'Doka')
-  # default homepage title
-  options.set('home_title', 'Home')
 
   var config_file = file(options.config)
   if config_file.exists() {
@@ -50,14 +48,23 @@ def config(this_dir, options) {
     }
   }
 
+  # auto-generated options
+  options.theme_directory = utils.get_theme_path(options)
+  options.endpoints = utils.flatten_dict(options.sitemap)
+
   var theme = options.get('theme', 'default')
-  var theme_config_file = file(
-    options.get('${theme}_config', os.join_paths(this_dir, '_data', '${theme}.json'))
-  )
+  var theme_config_file = file(os.join_paths(options.theme_directory, '_data', 'config.json'))
   if theme_config_file.exists() {
     options.theme_config = json.parse(theme_config_file.path()) or {}
-    if !is_dict(options.theme_config) {
-      die Exception('Invalid theme configuration file.')
+    
+    theme_config_file = file(
+      options.get('${theme}_config', os.join_paths(this_dir, '_data', '${theme}.json'))
+    )
+    if theme_config_file.exists() {
+      options.theme_config.extend(json.parse(theme_config_file.path()) or {})
+      if !is_dict(options.theme_config) {
+        die Exception('Invalid theme configuration file.')
+      }
     }
   } else {
     options.theme_config = {}
@@ -69,10 +76,6 @@ def config(this_dir, options) {
     'nyssa.json'
   )
   options.doka = json.parse(nyssa_config)
-
-  # auto-generated options
-  options.theme_directory = utils.get_theme_path(options)
-  options.endpoints = utils.flatten_dict(options.sitemap)
 
   return options
 }

@@ -34,7 +34,6 @@ def get_source(sitemap, path) {
 }
 
 def create_navigation(data, current_path, config) {
-
   var ul_class = config.theme_config.get('nav_class', '')
   var li_class = config.theme_config.get('nav_item_class', '')
   var a_class = config.theme_config.get('nav_link_class', '')

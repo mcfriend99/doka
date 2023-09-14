@@ -1,10 +1,16 @@
 import http
 import os
 import json
+import date
 import .utils
 import .functions
 import .build
 import .search
+
+def log(req, res) {
+  # echo '${date().format("c")} [${req.ip}] "${req.method} ${req.path} HTTP/${req.http_version}" "${req.headers.get("User-Agent")}" ${res.status} ${res.body.length()}'
+  echo '${date().format("c")} [${req.ip}] "${req.method} ${req.path} HTTP/${req.http_version}" ${res.status} ${res.body.length()}'
+}
 
 def serve(options) {
   if !os.dir_exists(options.root)
@@ -12,6 +18,8 @@ def serve(options) {
 
   var tm = utils.init_template(options.theme_directory)
   var server = http.server(options.port, options.host)
+
+  var silent = options.get('silent', false)
 
   if !options.get('dev', false) {
     var final_sitemap
@@ -48,6 +56,8 @@ def serve(options) {
       } else {
         search(req, res, tm.render, final_sitemap.endpoints, options)
       }
+
+      if !silent log(req, res)
     })
   } else {
     server.on_receive(@(req, res) {
@@ -64,6 +74,8 @@ def serve(options) {
       } else {
         search(req, res, tm.render, final_sitemap.endpoints, options)
       }
+
+      if !silent log(req, res)
     })
   }
 
@@ -74,6 +86,8 @@ def serve(options) {
 
   if options.host == '0.0.0.0' options.host = 'localhost'
 
-  echo 'Server started on port http://${options.host}:${options.port}'
+  if !silent {
+    echo 'Server started on port http://${options.host}:${options.port}'
+  }
   server.listen()
 }
