@@ -12,6 +12,7 @@ var md = markdown({
 
 def get_template_vars(req, md_file, config) {
   md.use(@(md, options){  return vars_plugin(md, config) })
+  var markdown =  md_file and is_file(md_file) ? md_file.read() : ''
   
   return {
     navs: {
@@ -19,7 +20,8 @@ def get_template_vars(req, md_file, config) {
       subnav: nav.create_subnav(config.endpoints, req.path, config),
     },
     page: {
-      content: md_file and is_file(md_file) ? md.render(md_file.read()) : md_file,
+      markdown,
+      content: md_file and is_file(md_file) ? md.render(markdown) : md_file,
       title: nav.get_title(config.endpoints, req.path),
       next: nav.get_nth_endpoint(config.endpoints, req.path, 1),
       previous: nav.get_nth_endpoint(config.endpoints, req.path, -1),

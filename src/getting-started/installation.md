@@ -75,7 +75,7 @@ cd <root directory>
 doka serve -d
 ```
 
-Now you can open a new browser window at [http://localhost:3000](http://localhost:3000).
+Now you can open a new browser window at [http://localhost:4000](http://localhost:4000).
 
 Congratulations! You have just created your first Doka site! Browse around the 
 site to see what's available.

@@ -25,6 +25,7 @@ def do_asset_build(assets, root, output_dir, options, map) {
     var content = reader.read()
 
     map[asset] = {
+      md: '',
       file: reader.path(),
       title: '',
       headers: {
@@ -88,6 +89,7 @@ def build_endpoints(template, options, output_dir, target) {
     var reader = file(html_file)
     var content = reader.read()
     map[key] = {
+      md: page.page.markdown,
       file: reader.path(),
       title: value.title,
       headers: {},
@@ -119,6 +121,7 @@ def build_error_page(template, error_code, output_dir, options) {
   var file_handle = file(html_file)
   
   return {
+    md: '',
     file: file_handle.path(),
     headers: {},
     title: '',

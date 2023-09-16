@@ -61,9 +61,9 @@ def serve(options) {
     })
   } else {
     server.on_receive(@(req, res) {
-      var final_sitemap = build(tm.render, options, req.path)
-
       if req.path != options.search_page {
+        var final_sitemap = build(tm.render, options, req.path)
+
         var path = final_sitemap.endpoints.get(req.path)
         if path {
           res.headers.extend(path.headers)
@@ -72,6 +72,8 @@ def serve(options) {
           res.write(file(final_sitemap['404'].file).read())
         }
       } else {
+        var final_sitemap = build(tm.render, options)
+
         search(req, res, tm.render, final_sitemap.endpoints, options)
       }
 

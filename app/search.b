@@ -23,7 +23,7 @@ def find(string, needle, content_path, content_title, result) {
         var is_intro = string.starts_with(matches[0][i])
   
         var title = is_intro ? content_title : content_title + ' &rsaquo; ' + matches[1][i]
-        var path = is_intro ? content_path : content_path + '#' + slugify(matches[1][i])
+        var url = is_intro ? content_path : content_path + '#' + slugify(matches[1][i])
         var excerpt = clean_string(
           matches[2][i].
             # replace links and images as they may cause repition
@@ -34,7 +34,10 @@ def find(string, needle, content_path, content_title, result) {
         # make the matched query itself bold
         ).replace('/(${clean_needle})/i', '<strong>$1</strong>')
 
-        var existing_match = result.keys().filter(@(x) { return excerpt.starts_with(x) or x.starts_with(excerpt) })
+        var existing_match = result.keys().filter(@(x) { 
+          return excerpt.starts_with(x) or x.starts_with(excerpt) 
+        })
+        
         if existing_match {
           if existing_match[0].length() > excerpt.length() {
             continue
@@ -44,7 +47,7 @@ def find(string, needle, content_path, content_title, result) {
         }
         
         result.set(excerpt, {
-          path,
+          url,
           title,
           excerpt,
         })
@@ -67,7 +70,7 @@ def do_search(query, sitemap) {
   if query {
     # we'll only be searching through html files.
     var working_sitemap = sitemap.filter(@(map) {
-      return map.file.path().ends_with('.html')
+      return map.file.ends_with('.html')
     })
 
     for path, data in working_sitemap {

@@ -12,7 +12,7 @@
 
         <ul x-if="page.content" class="search-result">
           <li x-for="page.content" x-value="result">
-            <a href="{{ result.path }}">{{ result.title }}</a>
+            <a href="{{ result.url }}">{{ result.title }}</a>
             <p>{{ result.excerpt }}...</p>
           </li>
         </ul>
