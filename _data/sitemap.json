@@ -13,7 +13,7 @@
       },
       "/getting-started/sitemap": {
         "source": "getting-started/sitemap",
-        "title": "Sitemaps"
+        "title": "Sitemap"
       },
       "/getting-started/configuration": {
         "source": "getting-started/configuration",
@@ -25,29 +25,17 @@
     "source": "guides/index",
     "title": "Guides",
     "children": {
-      "/guides/page": {
-        "source": "guides/pages",
-        "title": "Guides"
-      },
       "/guides/creating-docs": {
         "source": "guides/creating-docs",
         "title": "Creating Docs"
       },
-      "/guides/menu": {
-        "source": "guides/menu",
-        "title": "Menu"
-      },
-      "/guides/search": {
-        "source": "guides/search",
-        "title": "Search"
+      "/guides/assets": {
+        "source": "guides/assets",
+        "title": "Static Assets"
       },
       "/guides/styling": {
         "source": "guides/styling",
         "title": "Styling"
-      },
-      "/guides/assets": {
-        "source": "guides/assets",
-        "title": "Static Assets"
       },
       "/guides/toc": {
         "source": "guides/table-of-contents",
@@ -64,6 +52,36 @@
       "/guides/deployment": {
         "source": "guides/deployment",
         "title": "Deployment"
+      },
+      "/guides/themes": {
+        "source": "guides/themes/index",
+        "title": "Themes",
+        "children": {
+          "/guides/themes/pages": {
+            "source": "guides/themes/pages",
+            "title": "Pages"
+          },
+          "/guides/themes/menu": {
+            "source": "guides/themes/menu",
+            "title": "Menu"
+          },
+          "/guides/themes/search": {
+            "source": "guides/themes/search",
+            "title": "Search"
+          },
+          "/guides/themes/custom-assets": {
+            "source": "guides/themes/custom-assets",
+            "title": "Custom User Assets"
+          },
+          "/guides/themes/configuration": {
+            "source": "guides/themes/configuration",
+            "title": "Configuration"
+          },
+          "/guides/themes/errors": {
+            "source": "guides/themes/errors",
+            "title": "Error Pages"
+          }
+        }
       }
     }
   }

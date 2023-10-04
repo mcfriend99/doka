@@ -20,8 +20,9 @@ def serve(options) {
   var server = http.server(options.port, options.host)
 
   var silent = options.get('silent', false)
+  var is_dev = options.get('dev', false)
 
-  if !options.get('dev', false) {
+  if !is_dev {
     var final_sitemap
 
     var cache_sitemap_file = file(os.join_paths(options.cache, '_sitemap.json'))
@@ -89,7 +90,7 @@ def serve(options) {
   if options.host == '0.0.0.0' options.host = 'localhost'
 
   if !silent {
-    echo 'Server started on port http://${options.host}:${options.port}'
+    echo (is_dev ? 'Development server' : 'Server') + ' started on port http://${options.host}:${options.port}'
   }
   server.listen()
 }

@@ -37,7 +37,6 @@ def create_navigation(data, current_path, config) {
   var ul_class = config.theme_config.get('nav_class', '')
   var li_class = config.theme_config.get('nav_item_class', '')
   var a_class = config.theme_config.get('nav_link_class', '')
-  var section_class = config.theme_config.get('nav_section_class', '')
   var active_class = config.theme_config.get('active_nav_class', '')
 
   var result = '<ul class="${ul_class}">'

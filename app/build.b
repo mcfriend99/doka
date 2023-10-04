@@ -73,7 +73,7 @@ def build_endpoints(template, options, output_dir, target) {
       key.replace('/', '_') + '.html'
     )
 
-    var page = content.get_template_vars({path: key, req: {},}, markdown_file, options)
+    var page = content.get_template_vars({path: key, req: {},}, markdown_file, value, options)
     var rendered_content = template(
       template_type + '.html',
       page
@@ -108,7 +108,7 @@ def build_error_page(template, error_code, output_dir, options) {
 
   var rendered_content = template(
     error_code + '.html',
-    content.get_template_vars({path: error_code}, nil, options)
+    content.get_template_vars({path: error_code}, nil, {}, options)
   )
   
   var output_path = os.dir_name(html_file)

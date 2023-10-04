@@ -14,11 +14,11 @@ you read that right.
 
 You can change where you store the application configuration at any time by 
 creating a valid application configuration file with any other name and in any 
-other location and pointing to it when you serve or build your project using 
+other location and pointing to it when you start or build your project using 
 the `--config` (or `-c`) argument. For example,
 
 ```
-doka serve -d --config /path/to/my/config/something.json
+doka start -d --config /path/to/my/config/something.json
 ```
 
 ### What goes into an application configuration file?
@@ -65,10 +65,10 @@ Below is an example of a full application configuration:
   located at `_data/sitemap.json`.
 - **theme**: The name of the theme used by the applicaiton. This is by default 
   the theme `default` which comes packaged with Doka.
-- **silent**: Turn on or off request logging for `doka serve`. Default is `true`. 
-  This configuration can also be passed in via the CLI for `doka serve` command.
+- **silent**: Turn on or off request logging for `doka start`. Default is `true`. 
+  This configuration can also be passed in via the CLI for `doka start` command.
 - **dev**: Turn on the development mode for Doka. Default is `false`. This 
-  configuration can also be passed in via the CLI for `doka serve` command.
+  configuration can also be passed in via the CLI for `doka start` command.
 
 > Only the `app_name` and `search_page` configuration are required.
 

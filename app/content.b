@@ -10,7 +10,7 @@ var md = markdown({
   html: true,
 }).use(toc_plugin)
 
-def get_template_vars(req, md_file, config) {
+def get_template_vars(req, md_file, meta, config) {
   md.use(@(md, options){  return vars_plugin(md, config) })
   var markdown =  md_file and is_file(md_file) ? md_file.read() : ''
   
@@ -25,6 +25,7 @@ def get_template_vars(req, md_file, config) {
       title: nav.get_title(config.endpoints, req.path),
       next: nav.get_nth_endpoint(config.endpoints, req.path, 1),
       previous: nav.get_nth_endpoint(config.endpoints, req.path, -1),
+      meta,
     },
     config,
     theme: config.theme_config,

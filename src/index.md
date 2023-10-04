@@ -23,7 +23,7 @@ And start the site:
 
 ```
 cd my-website/
-doka serve --dev
+doka start --dev
 ```
 
 Open [http://localhost:4000](http://localhost:4000) and see your website.

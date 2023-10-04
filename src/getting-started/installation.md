@@ -72,7 +72,7 @@ server that will serve your website and reflect the latest changes.
 
 ```
 cd <root directory>
-doka serve -d
+doka start -d
 ```
 
 Now you can open a new browser window at [http://localhost:4000](http://localhost:4000).

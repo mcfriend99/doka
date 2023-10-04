@@ -13,7 +13,7 @@ var default_config = os.join_paths(this_dir, '_data', 'config.json')
 var parser = args.Parser('doka')
 
 # SERVE
-parser.add_command('serve', 'Serve your site.', {
+parser.add_command('start', 'Server your site server.', {
   action: @(options) {
     serve(config(this_dir, options))
   }

@@ -98,7 +98,8 @@ def search(req, res, template, sitemap, options) {
 
   var template_vars = content.get_template_vars(
     req, 
-    do_search(query, sitemap), 
+    do_search(query, sitemap),
+    {description: '${query} - Search'},
     options
   )
 
