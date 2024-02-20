@@ -4,7 +4,7 @@
   <meta x-if="page.meta.description" name="description" content="{{ page.meta.description }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" type="{{ theme.favicon_type|alt='image/x-icon' }}" href="{{ theme.favicon|alt='/favicon.ico' }}" />
+  <link rel="icon" type="{{ theme.favicon_type|blank='image/x-icon' }}" href="{{ theme.favicon|blank='/favicon.ico' }}" />
   <!-- Allow custom stylesheet overrides by user -->
   <link x-for="theme.styles" x-value="style" rel="stylesheet" href="{{ style }}">
   <link rel="stylesheet" href="/css/custom.css">

@@ -55,20 +55,6 @@ def get_theme_path(options) {
     if !os.dir_exists(theme_path) {
       die Exception('Theme "${options.theme}" not found!')
     }
-
-    if options.theme_config.length() == 0 {
-      var theme_config_file = file(os.join_paths(
-        os.dir_name(os.dir_name(__file__)), 
-        'themes', options.theme, '_data', 'config.json'
-      ))
-
-      if theme_config_file.exists() and !os.is_dir(theme_config_file.path()) {
-        options.theme_config = json.parse(theme_config_file.path()) or {}
-        if !is_dict(options.theme_config) {
-          die Exception('Invalid theme configuration file.')
-        }
-      }
-    }
   }
 
   return theme_path
