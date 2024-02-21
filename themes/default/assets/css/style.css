@@ -283,6 +283,7 @@ header {
 .content p {
   overflow-wrap: anywhere;
   width: 100%;
+  display: inline-block;
 }
 
 .content p img {
