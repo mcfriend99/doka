@@ -282,7 +282,7 @@ header {
 
 .content p {
   overflow-wrap: anywhere;
-  display: flex;
+  width: 100%;
 }
 
 .content p img {
