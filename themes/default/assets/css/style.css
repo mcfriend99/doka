@@ -282,6 +282,7 @@ header {
 
 .content p {
   overflow-wrap: anywhere;
+  display: flex;
 }
 
 .content p img {
