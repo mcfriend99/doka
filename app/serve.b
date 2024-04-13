@@ -33,6 +33,8 @@ def serve(options) {
     }
 
     server.on_receive(@(req, res) {
+      req.path = req.path.rtrim('/')
+      
       if req.path != options.search_page {
         var path = final_sitemap.endpoints.get(req.path)
         if path {
