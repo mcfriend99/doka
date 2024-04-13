@@ -64,6 +64,8 @@ def serve(options) {
     })
   } else {
     server.on_receive(@(req, res) {
+      req.path = req.path.rtrim('/')
+      
       if req.path != options.search_page {
         var final_sitemap = build(tm.render, options, req.path)
 
