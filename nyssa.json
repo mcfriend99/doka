@@ -1,6 +1,6 @@
 {
   "name": "doka", 
-  "version": "1.0.0", 
+  "version": "1.0.1", 
   "description": "A markdown based documentation site server.", 
   "homepage": "https://github.com/mcfriend99/doka", 
   "tags": [
