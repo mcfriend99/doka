@@ -40,7 +40,7 @@ def config(this_dir, options) {
   )
   if !sitemap_file.exists() {
     # unset the sitemap if it does not exist.
-    options.set('sitemap', nil)
+    options.set('sitemap', {})
   } else {
     options.sitemap = json.parse(sitemap_file.path()) or {}
     if !is_dict(options.sitemap) {

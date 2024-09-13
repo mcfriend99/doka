@@ -17,3 +17,4 @@
 *.log
 
 _cache/
+.DS_Store
