@@ -545,7 +545,7 @@ pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p 
   display: none;
 }
 
-.content blockquote code {
+.content blockquote code:not([class]) {
   background: var(--pre-border-color, #eee);
 }
 
