@@ -16,7 +16,7 @@ def config(this_dir, options) {
     if is_dict(decoded) {
       options.extend(decoded)
     } else if decoded {
-      die Exception('Invalid config file!')
+      raise Exception('Invalid config file!')
     }
   }
 
@@ -44,7 +44,7 @@ def config(this_dir, options) {
   } else {
     options.sitemap = json.parse(sitemap_file.path()) or {}
     if !is_dict(options.sitemap) {
-      die Exception('Invalid sitemap at "${sitemap_file.path()}"')
+      raise Exception('Invalid sitemap at "${sitemap_file.path()}"')
     }
   }
 
@@ -63,7 +63,7 @@ def config(this_dir, options) {
     if theme_config_file.exists() {
       options.theme_config.extend(json.parse(theme_config_file.path()) or {})
       if !is_dict(options.theme_config) {
-        die Exception('Invalid theme configuration file.')
+        raise Exception('Invalid theme configuration file.')
       }
     }
   } else {

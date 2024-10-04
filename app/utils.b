@@ -53,7 +53,7 @@ def get_theme_path(options) {
     )
 
     if !os.dir_exists(theme_path) {
-      die Exception('Theme "${options.theme}" not found!')
+      raise Exception('Theme "${options.theme}" not found!')
     }
   }
 

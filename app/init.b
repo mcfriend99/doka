@@ -83,7 +83,7 @@ def new_theme(name, root) {
   var theme_path = os.join_paths(root, 'themes', name)
 
   if os.dir_exists(theme_path) {
-    die Exception('Theme with same name "${name}" might already be initialized!')
+    raise Exception('Theme with same name "${name}" might already be initialized!')
   }
 
   # create the required directories

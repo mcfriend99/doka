@@ -14,7 +14,7 @@ def log(req, res) {
 
 def serve(options) {
   if !os.dir_exists(options.root)
-    die Exception('Invalid source directory!')
+    raise Exception('Invalid source directory!')
 
   var tm = utils.init_template(options.theme_directory)
   var server = http.server(options.port, options.host)
