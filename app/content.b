@@ -1,6 +1,6 @@
 
 import markdown
-import highlight { highlight }
+import .highlight { highlight }
 import .nav
 import .toc_plugin { toc_plugin }
 import .vars_plugin { vars_plugin }
