@@ -14,10 +14,10 @@
   "author": "Richard Ore <eqliqandfriends@gmail.com>", 
   "license": "MIT", 
   "sources": [
-    "https://nyssa.bladelang.com"
+    "https://nyssa.bladelang.org"
   ], 
   "deps": {
-    "highlight": "1.0.4"
+    "highlight": "1.0.0"
   }, 
   "cli": "index.b"
 }

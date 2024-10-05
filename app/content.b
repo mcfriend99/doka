@@ -1,9 +1,9 @@
 
 import markdown
-import .highlight { highlight }
+import highlight
 import .nav
-import .toc_plugin { toc_plugin }
-import .vars_plugin { vars_plugin }
+import .toc_plugin
+import .vars_plugin
 
 var md = markdown({
   highlight: highlight(),
