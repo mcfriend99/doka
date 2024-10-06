@@ -31,6 +31,6 @@ def get_template_vars(req, md_file, meta, config) {
     theme: config.theme_config,
     theme_name: config.theme,
     doka: config.doka,
-    request: is_dict(req) ? req : req.to_dict(),
+    request: is_dict(req) ? req : req.to_json(),
   }
 }

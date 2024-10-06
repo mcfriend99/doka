@@ -16,8 +16,15 @@ def de_regex(string) {
 def find(string, needle, content_path, content_title, result) {
 
   var clean_needle = de_regex(needle)
+  
+  # return newlines to their original forms as they're 
+  # critical to sectioning our search
+  string = string.replace('/(?<!\\\\)\\\\r/', '\r').
+      replace('/(?<!\\\\)\\\\n/', '\n')
+      
 
   def process(matches) {
+    
     if matches {
       iter var i = 0; i < matches[0].length(); i++ {
         var is_intro = string.starts_with(matches[0][i])
@@ -26,7 +33,7 @@ def find(string, needle, content_path, content_title, result) {
         var url = is_intro ? content_path : content_path + '#' + slugify(matches[1][i])
         var excerpt = clean_string(
           matches[2][i].
-            # replace links and images as they may cause repition
+            # replace links and images as they may cause repitition
             replace('/\]\([^)]+\)/', '').
             # replace non-word characters
             replace('/[^\w\s"\']+/', '')[,200]
