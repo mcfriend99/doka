@@ -124,6 +124,8 @@ header {
   display: flex;
   flex-direction: row-reverse;
   padding: 0 0.5em;
+  overflow: auto;
+  overflow-wrap: break-word;
 }
 
 .content {
