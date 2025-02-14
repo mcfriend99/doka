@@ -26,7 +26,7 @@ def extract_var(name, options) {
   return base
 }
 
-def vars_plugin(md, options) {
+def vars(md, options) {
   def vars(state, silent) {
     var start = state.pos
     var max = state.pos_max

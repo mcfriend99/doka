@@ -11,3 +11,10 @@ A markdown based documentation site server.
 - **Author:** Richard Ore <eqliqandfriends@gmail.com>
 - **License:** MIT
 
+## Extended Markdown
+
+Doka comes with the following extensions for Blade's built-in markdown module that are compartible with Panda Docs:
+
+- Table of contents
+- Variables
+- Attributes

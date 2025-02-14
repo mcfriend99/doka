@@ -2,16 +2,17 @@
 import markdown
 import .highlight
 import .nav
-import .toc_plugin
-import .vars_plugin
+import .markdown_plugin.toc
+import .markdown_plugin.vars
+import .markdown_plugin.attrs
 
 var md = markdown({
   highlight: highlight(),
   html: true,
-}).use(toc_plugin)
+}).use(toc).use(attrs)
 
 def get_template_vars(req, md_file, meta, config) {
-  md.use(@(md, options){  return vars_plugin(md, config) })
+  md.use(@(md, options){  return vars(md, config) })
   var markdown =  md_file and is_file(md_file) ? md_file.read() : ''
   
   return {

@@ -34,7 +34,7 @@ def htmlencode(x) {
                       replace('/>/', '&gt;')
 }
 
-def toc_plugin(md, opts) {
+def toc(md, opts) {
   if !opts opts = []
   var options = {
     placeholder: '(\\\$\{toc\}|\[\[?_?toc_?\]?\]|\\\$\<toc(\{[^}]*\})\>)',
