@@ -124,7 +124,6 @@ header {
   display: flex;
   flex-direction: row-reverse;
   padding: 0 0.5em;
-  overflow: auto;
   overflow-wrap: break-word;
 }
 
@@ -370,7 +369,7 @@ header {
 }
 
 .content del::before {
-    content: '−';
+    content: '-';
     color: #f44336;
 }
 
@@ -436,6 +435,98 @@ footer {
   color: var(--result-title-color, #607D8B);
 }
 
+/**
+ * highlight package starts.
+ *
+ * Default recommended styles. 
+ * 
+ * Copy this stylesheet into your project to use te default style. 
+ */
+[class^=language-] {
+  position: relative;
+}
+
+[class^=language-] .s {
+  color: #007936;
+}
+
+[class^=language-] .i {
+  color: #690;
+}
+
+[class^=language-] .x {
+  color: #872bff;
+}
+
+[class^=language-] .m {
+  color: #d30038;
+  font-style: italic;
+}
+
+[class^=language-] .f {
+  color: #d30038;
+}
+
+[class^=language-] .k {
+  color: #0069c2;
+}
+
+[class^=language-] .c {
+  color: #858585;
+}
+
+[class^=language-] .o {
+  color: #858585;
+}
+
+[class^=language-] .n {
+  color: #007936;
+}
+
+[class^=language-] .p {
+  color: #c4c4c4;
+}
+
+[class^=language-] .e {
+  color: #ff7989;
+}
+
+/** highlight package ends */
+
+pre:has(> [class*=-repl]) {
+  position: relative;
+}
+
+pre:has(> [class*=-repl])::after {
+  content: "Repl";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  font-size: 78%;
+  padding: 0 0.75em;
+  border-bottom-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
+  color: var(--active-color, #2b67b5);
+  cursor: pointer;
+  border: 1px solid var(--active-color, #2b67b5);
+}
+
+pre.off:has(> [class*=-repl])::after {
+  text-decoration: line-through;
+}
+
+pre.off [class*=-repl] {
+  transition: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p {
+  display: none;
+}
+
+.content blockquote code:not([class]) {
+  background: var(--pre-border-color, #eee);
+}
+
 .menu-toggle {
   width: 40px;
   cursor: pointer;
@@ -497,7 +588,18 @@ footer {
     box-shadow: 0 1px 12px rgba(0,0,0,.5);
     position: fixed;
     top: max(3em, 48px);
-    display: none;
+    left: -90%;
+    transition: left 300ms linear;
+    height: 100vh;
+  }
+
+  .sidebar.open {
+    left: 0;
+    transition: left 300ms linear;
+  }
+
+  body:has(.sidebar.open) {
+    overflow: hidden;
   }
 
   header {
@@ -521,97 +623,6 @@ footer {
     display: flex;
   }
 }
-
-/**
- * highlight package.
- *
- * Default recommended styles. 
- * 
- * Copy this stylesheet into your project to use te default style. 
- */
- [class^=language-] {
-  position: relative;
- }
-
- [class^=language-] .s {
-  color: #007936;
-}
-
-[class^=language-] .i {
-  color: #690;
-}
-
-[class^=language-] .x {
-  color: #872bff;
-}
-
-[class^=language-] .m {
-  color: #d30038;
-  font-style: italic;
-}
-
-[class^=language-] .f {
-  color: #d30038;
-}
-
-[class^=language-] .k {
-  color: #0069c2;
-}
-
-[class^=language-] .c {
-  color: #858585;
-}
-
-[class^=language-] .o {
-  color: #858585;
-}
-
-[class^=language-] .n {
-  color: #007936;
-}
-
-[class^=language-] .p {
-  color: #c4c4c4;
-}
-
-[class^=language-] .e {
-  color: #ff7989;
-}
-
-pre:has(> [class*=-repl]) {
-  position: relative;
-}
-
-pre:has(> [class*=-repl])::after {
-  content: "Repl";
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  font-size: 78%;
-  padding: 0 0.75em;
-  border-bottom-left-radius: 0.25em;
-  border-top-right-radius: 0.25em;
-  color: var(--active-color, #2b67b5);
-  cursor: pointer;
-  border: 1px solid var(--active-color, #2b67b5);
-}
-
-pre.off:has(> [class*=-repl])::after {
-  text-decoration: line-through;
-}
-
-pre.off [class*=-repl] {
-  transition: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-
-pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p {
-  display: none;
-}
-
-.content blockquote code:not([class]) {
-  background: var(--pre-border-color, #eee);
-}
-
 
 @media (prefers-color-scheme: dark) {
   :root {

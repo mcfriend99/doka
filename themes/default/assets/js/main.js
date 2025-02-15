@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('pre:has(> [class*=-repl])')
-    .forEach(function(code) {
+    ?.forEach(function(code) {
     code.addEventListener('click', function(e) {
         let bounds = code.getBoundingClientRect();
         let x = e.clientX - bounds.left;
@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }, false)
     })
 
+  let sidebar = document.getElementById('sidebar')
+
   document.getElementById('menutoggle')?.addEventListener('click', () => {
-    let sidebar = document.getElementById('sidebar')
     if(sidebar) {
       if(sidebar.classList.contains('open')) {
         sidebar.classList.remove('open')
@@ -25,5 +26,15 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.add('open')
       }
     }
+  })
+
+  document.querySelector('.content')?.addEventListener('click', () => {
+    sidebar.classList.remove('open')
+  })
+
+  document.querySelectorAll('dt[id], h2[id]')?.forEach((el) => {
+    el.addEventListener('click', () => {
+      window.location.hash = el.getAttribute('id')
+    })
   })
 })
