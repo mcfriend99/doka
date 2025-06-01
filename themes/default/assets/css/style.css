@@ -21,6 +21,18 @@
   --input-bg-color: white;
   --input-border-color: color-mix(in srgb, var(--input-bg-color), black 10%);
   --code-font-family: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace;
+
+  --code-s: #448800; /* string */
+  --code-i: #1c9963; /* interpolation */
+  --code-x: #872bff; /* constant */
+  --code-m: #d30038; /* method */
+  --code-f: #d30038; /* function */
+  --code-k: #0069c2; /* keyword */
+  --code-c: #858585; /* comment */
+  --code-o: #858585; /* operator */
+  --code-n: #007936; /* number */
+  --code-p: #c4c4c4; /* prompt */
+  --code-e: #ff7989; /* error */
 }
 
 html {
@@ -447,48 +459,48 @@ footer {
 }
 
 [class^=language-] .s {
-  color: #007936;
+  color: var(--code-s);
 }
 
 [class^=language-] .i {
-  color: #690;
+  color: var(--code-i);
 }
 
 [class^=language-] .x {
-  color: #872bff;
+  color: var(--code-x);
 }
 
 [class^=language-] .m {
-  color: #d30038;
+  color: var(--code-m);
   font-style: italic;
 }
 
 [class^=language-] .f {
-  color: #d30038;
+  color: var(--code-f);
 }
 
 [class^=language-] .k {
-  color: #0069c2;
+  color: var(--code-k);
 }
 
 [class^=language-] .c {
-  color: #858585;
+  color: var(--code-c);
 }
 
 [class^=language-] .o {
-  color: #858585;
+  color: var(--code-o);
 }
 
 [class^=language-] .n {
-  color: #007936;
+  color: var(--code-n);
 }
 
 [class^=language-] .p {
-  color: #c4c4c4;
+  color: var(--code-p);
 }
 
 [class^=language-] .e {
-  color: #ff7989;
+  color: var(--code-e);
 }
 
 /** highlight package ends */
@@ -646,9 +658,17 @@ pre.off [class*=-repl] .e, pre.off [class*=-repl] .r, pre.off [class*=-repl] .p 
     --sidebar-color: #1b1c1e;
     --input-bg-color: #303134;
     --input-border-color: #303134;
-  }
 
-  [class^=language-] .s {
-    color: #2dcb74;
+    --code-s: #88bb44; /* string */
+    --code-i: #3ebb85; /* interpolation */
+    --code-x: #cd6fff; /* constant */
+    --code-m: #f5558c; /* method */
+    --code-f: #f5558c; /* function */
+    --code-k: #559cf6; /* keyword */
+    --code-c: #858585; /* comment */
+    --code-o: #a8a8a8; /* operator */
+    --code-n: #88beac; /* number */
+    --code-p: #c4c4c4; /* prompt */
+    --code-e: #ff7989; /* error */
   }
 }
