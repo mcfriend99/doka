@@ -64,7 +64,7 @@ def test(tokens, i, t) {
     token = get(tokens, ii)  # supports negative ii
   } as token_error
 
-  if token_error { return res; }
+  if token_error { return res }
   var token_dict = token.to_dict()
 
   for key in t.keys() {

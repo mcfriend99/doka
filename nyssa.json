@@ -14,7 +14,7 @@
   "author": "Richard Ore <eqliqandfriends@gmail.com>", 
   "license": "MIT", 
   "sources": [
-    "https://nyssa.bladelang.org"
+    "https://nyssa.zurilang.org"
   ],
   "cli": "index.b"
 }

@@ -8,8 +8,8 @@ nyssa install -g doka
 
 ## Requirements
 
-- Blade version v0.0.86 or above (you can check your Blade installation 
-  version by running `blade -v`).
+- Zuri v0.1.0 or above (you can check your Zuri installation version by 
+  running `zuri -v`).
 
 ## Starting a new project
 

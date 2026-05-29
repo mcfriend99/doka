@@ -3,7 +3,7 @@
 Doka helps you **create beautiful documentation sites from markdown files**
 without taking the steering from your hands.
 
-Doka is built in [Blade](https://bladelang.com) and that's all that's required to run Doka.
+Doka is built in [Zuri](https://zurilang.org) and that's all that's required to run Doka.
 
 ## Getting Started
 

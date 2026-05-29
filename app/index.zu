@@ -14,7 +14,7 @@ var default_config = os.join_paths(this_dir, '_data', 'config.json')
 var parser = args.Parser('doka')
 
 # SERVE
-parser.add_command('start', 'Server your site server.', {
+parser.add_command('start', 'Start your site server.', {
   action: @(options) {
     serve(config(this_dir, options))
   }
@@ -57,10 +57,10 @@ parser.add_command('create', 'Initializes a new doka application.', {
   short_name: 'r',
   type: args.STRING,
   value: this_dir,
-}).add_option('name', 'The application name - Default: Sample App.', {
+}).add_option('name', 'The application name.', {
   short_name: 'n',
   type: args.STRING,
-  value: ''
+  value: 'Sample App'
 })
 
 # THEME
@@ -68,7 +68,7 @@ parser.add_command('new-theme', 'Initializes a new doka theme.', {
   action: @(options) {
     init.new_theme(options.name, this_dir)
   }
-}).add_option('name', 'The name of the theme - Default: mynewtheme', {
+}).add_option('name', 'The name of the theme.', {
   short_name: 'n',
   type: args.STRING,
   value: 'mynewtheme'
